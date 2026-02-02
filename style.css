@@ -560,7 +560,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-content {
     text-align: center;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -586,6 +586,114 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--color-primary-light);
     color: var(--color-white);
     border-color: var(--color-primary-light);
+}
+
+/* Formulaire de contact */
+.contact-form {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    text-align: left;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.875rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--color-text);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary-light);
+    background-color: var(--color-white);
+    box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9CA3AF;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-submit {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.form-submit button {
+    min-width: 250px;
+}
+
+.form-notice {
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Message de succès */
+.form-success {
+    background-color: rgba(82, 183, 136, 0.15);
+    border: 2px solid var(--color-primary-light);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    text-align: center;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-primary-light);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto var(--spacing-md);
+}
+
+.form-success h3 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-sm);
+}
+
+.form-success p {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 
@@ -739,6 +847,21 @@ h1, h2, h3, h4, h5, h6 {
     .footer-content {
         flex-direction: column;
         text-align: center;
+    }
+
+    /* Formulaire responsive */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .contact-form {
+        padding: var(--spacing-md);
+    }
+
+    .form-submit button {
+        width: 100%;
+        min-width: auto;
     }
 }
 

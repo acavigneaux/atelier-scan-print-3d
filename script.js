@@ -165,6 +165,92 @@ function initSmoothScroll() {
 
 
 // ============================================
+// GESTION DU FORMULAIRE DE CONTACT
+// ============================================
+
+/**
+ * Gère la soumission du formulaire de contact
+ */
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('formSuccess');
+
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Récupérer les données du formulaire
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone') || 'Non renseigné',
+            service: formData.get('service'),
+            message: formData.get('message')
+        };
+
+        // Bouton de soumission
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.textContent = 'Envoi en cours...';
+        submitButton.disabled = true;
+
+        try {
+            // Option 1: Utiliser Web3Forms (gratuit)
+            // Créer un compte sur https://web3forms.com/ et obtenir une clé API
+            // Décommenter et remplacer YOUR_ACCESS_KEY par votre vraie clé
+            /*
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: 'YOUR_ACCESS_KEY',
+                    ...data
+                })
+            });
+
+            if (response.ok) {
+                // Afficher le message de succès
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                form.reset();
+            }
+            */
+
+            // Option 2: Solution temporaire avec mailto (jusqu'à configuration Web3Forms)
+            const subject = encodeURIComponent(`Demande de devis - ${data.service}`);
+            const body = encodeURIComponent(
+                `Nom: ${data.name}\n` +
+                `Email: ${data.email}\n` +
+                `Téléphone: ${data.phone}\n` +
+                `Service: ${data.service}\n\n` +
+                `Message:\n${data.message}`
+            );
+            window.location.href = `mailto:contact@atelier-scan3d.fr?subject=${subject}&body=${body}`;
+
+            // Afficher le message de succès après un court délai
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                form.reset();
+            }, 500);
+
+        } catch (error) {
+            console.error('Erreur lors de l\'envoi:', error);
+            alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+        } finally {
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }
+    });
+}
+
+
+// ============================================
 // GESTION DU BOUTON CTA EMAIL
 // ============================================
 
@@ -234,6 +320,7 @@ function init() {
     initMobileMenu();
     initScrollAnimations();
     initSmoothScroll();
+    initContactForm();
     initContactButtons();
     initLazyLoading();
 
